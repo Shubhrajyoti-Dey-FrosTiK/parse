@@ -27,7 +27,6 @@ router.post("/", async (req, res) => {
       resolve(files);
     }); // form.parse
   });
-  console.log(formFields.Name.filepath);
   const excel = await XLSX.readFileSync(formFields.Name.filepath, {
     raw: true,
   });
@@ -37,7 +36,7 @@ router.post("/", async (req, res) => {
     combinedData[sheet] = XLSX.utils.sheet_to_json(excel.Sheets[sheet]);
   });
   console.log(combinedData);
-  fs.unlinkSync(formFields.Name.filepath);
+  fs.unlinkSync(formFields.file.filepath);
   res.send({ xlsx: combinedData });
 });
 
@@ -55,8 +54,7 @@ router.post("/combined", async (req, res) => {
       resolve(files);
     }); // form.parse
   });
-  console.log(formFields.Name.filepath);
-  const excel = await XLSX.readFileSync(formFields.Name.filepath, {
+  const excel = await XLSX.readFileSync(formFields.file.filepath, {
     raw: true,
   });
   const sheet_name_list = excel.SheetNames;
@@ -68,7 +66,7 @@ router.post("/combined", async (req, res) => {
     ];
   });
   console.log(combinedData);
-  fs.unlinkSync(formFields.Name.filepath);
+  fs.unlinkSync(formFields.file.filepath);
   res.send({ xlsx: combinedData });
 });
 
@@ -87,7 +85,7 @@ router.post("/combined/extract", async (req, res) => {
       resolve(files);
     }); // form.parse
   });
-  console.log(formFields.Name.filepath);
+  console.log(formFields.file.filepath);
   const excel = await XLSX.readFileSync(formFields.Name.filepath, {
     raw: true,
   });
@@ -100,7 +98,7 @@ router.post("/combined/extract", async (req, res) => {
     ];
   });
   console.log(combinedData);
-  fs.unlinkSync(formFields.Name.filepath);
+  fs.unlinkSync(formFields.file.filepath);
   const extractedData = data.rollAndBranchExtractor(combinedData);
   res.send(extractedData);
 });
