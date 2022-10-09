@@ -27,7 +27,7 @@ router.post("/", async (req, res) => {
       resolve(files);
     }); // form.parse
   });
-  const excel = await XLSX.readFileSync(formFields.Name.filepath, {
+  const excel = await XLSX.readFileSync(formFields.files.filepath, {
     raw: true,
   });
   const sheet_name_list = excel.SheetNames;
@@ -86,7 +86,7 @@ router.post("/combined/extract", async (req, res) => {
     }); // form.parse
   });
   console.log(formFields.file.filepath);
-  const excel = await XLSX.readFileSync(formFields.Name.filepath, {
+  const excel = await XLSX.readFileSync(formFields.files.filepath, {
     raw: true,
   });
   const sheet_name_list = excel.SheetNames;
