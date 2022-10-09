@@ -21,12 +21,12 @@ router.post("/", async (req, res) => {
     }); // form.parse
   });
   const csv = await Papa.parse(
-    fs.readFileSync(formFields.file.filepath, "utf8"),
+    fs.readFileSync(formFields.files.filepath, "utf8"),
     {
       header: true,
     }
   );
-  fs.unlinkSync(formFields.file.filepath);
+  fs.unlinkSync(formFields.files.filepath);
   res.send({ csv: csv.data });
 });
 
